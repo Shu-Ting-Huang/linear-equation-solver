@@ -1,4 +1,5 @@
 from sympy import Matrix
+from sympy import simplify
 
 #An object of RowOpSeq consists of a sequence of matrices connected by elementary row operations 
 class RowOpSeq:
@@ -20,7 +21,7 @@ class RowOpSeq:
     #(3) {"op":"n->kn","k":k,"row":n}
     def add_step(self,row_op):
         self.row_op_seq+=[row_op]
-        self.mat_seq+=[self.mat_seq[-1].elementary_row_op(**row_op)]
+        self.mat_seq+=[simplify(self.mat_seq[-1].elementary_row_op(**row_op))]
         
 
 def find_RREF(A):
