@@ -32,3 +32,18 @@ def matrix2latex(A, bar_config=''): #bar_config indicate where to put vertical b
             result += (frac2latex(A[i,n-1]) + '\n')
     result += '\\end{pmatrix}\n'
     return result
+
+def row_op_type2latex(row_op):
+    if row_op['op'] == 'n->n+km':
+        k = row_op['k']
+        m = row_op['row2'] + 1
+        n = row_op['row'] + 1
+        return frac2latex_omit1(k) + 'R_{' + str(m) + '}+R_{' + str(n) + '}\\rightarrow R_{' + str(n) +'}'
+    elif row_op['op'] == 'n<->m':
+        m = row_op['row1'] + 1
+        n = row_op['row2'] + 1
+        return 'R_{' + str(m) + '}\\leftrightarrow R_{' + str(n) + '}'
+    else:
+        k = row_op['k']
+        n = row_op['row'] + 1
+        return frac2latex_omit1(k) + 'R_{' + str(n) + '}\\rightarrow R_{' + str(n) + '}'
