@@ -49,7 +49,7 @@ def row_op_type2latex(row_op):
         n = row_op['row'] + 1
         return frac2latex_omit1(k) + 'R_{' + str(n) + '}\\rightarrow R_{' + str(n) + '}'
 
-def output2pdf(B,bar_config=''):
+def output2pdf(B,bar_config='',number_of_steps=None):
     with open('output.tex','w') as f:
         f.write("\\documentclass[english]{article}\n")
         f.write("\\usepackage{amsfonts}\n")
@@ -70,7 +70,9 @@ def output2pdf(B,bar_config=''):
         f.write('&'+matrix2latex(B.mat_seq[0], bar_config=bar_config))
 
         #Write down each row operation step:
-        for t in range(len(B.row_op_seq)):
+        if number_of_steps == None:
+            number_of_steps = len(B.row_op_seq)
+        for t in range(number_of_steps):
             f.write('\\'+'\\'+'\n\\xrightarrow{' + row_op_type2latex(B.row_op_seq[t]) + '}\n&' \
                     + matrix2latex(B.mat_seq[t+1], bar_config=bar_config))
         
@@ -80,3 +82,7 @@ def output2pdf(B,bar_config=''):
     os.remove("output.log")
     os.system("start SumatraPDF output.pdf")
     os.system("pause")
+
+def step_by_step_output2pdf(B):
+    for i in range(len(B.row_op_seq)+1):
+        output2pdf(B,number_of_steps=i)
