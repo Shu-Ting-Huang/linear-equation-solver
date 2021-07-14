@@ -81,4 +81,4 @@ def find_RREF(A):
     return result
 
 
-from input_matrix import A
+#from input_matrix import A

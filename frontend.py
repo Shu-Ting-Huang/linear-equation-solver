@@ -78,5 +78,5 @@ def output2pdf(B,bar_config=''):
     os.system('pdflatex output.tex')
     os.remove("output.aux")
     os.remove("output.log")
-    # os.system("start SumatraPDF output.pdf")
-    # os.system("pause")
+    os.system("start SumatraPDF output.pdf")
+    os.system("pause")
